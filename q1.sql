@@ -1,6 +1,6 @@
 select
-salesperson.name as salesperson_name, max(orders.amount) as highest_sale_amount
+salesperson.name as salesperson_name, coalesce(max(orders.amount), 0) as highest_sale_amount
 from
-orders
-join salesperson on orders.salesperson_id=salesperson.id
+salesperson
+left join orders on orders.salesperson_id=salesperson.id
 group by salesperson.id;
